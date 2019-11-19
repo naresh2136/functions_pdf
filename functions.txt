@@ -1,1 +1,340 @@
 
+Functions
+A function is a block of organized, reusable code that is used to perform a single, related action.
+Functions provide better modularity for your application and a high degree of code reusing.
+As you already know, Python gives you many built-in functions like print(), etc. but you can also
+create your own functions. These functions are called user-defined functions.
+Defining a Function
+You can define functions to provide the required functionality. Here are simple rules to define a
+function in Python.
+Function blocks begin with the keyword def followed by the function name and parentheses ( (
+) ).
+Any input parameters or arguments should be placed within these parentheses. You can also
+define parameters inside these parentheses.
+The first statement of a function can be an optional statement - the documentation string of
+the function or docstring.
+The code block within every function starts with a colon (:) and is indented.
+The statement return [expression] exits a function, optionally passing back an expression to the
+caller. A return statement with no arguments is the same as return None.
+Syntax
+def functionname( parameters ):
+"function_docstring"
+function_suite
+return [expression]
+By default, parameters have a positional behavior and you need to inform them in the same order that
+they were defined.
+Calling a Function
+Defining a function only gives it a name, specifies the parameters that are to be included in the function
+and structures the blocks of code.
+Once the basic structure of a function is finalized, you can execute it by calling it from another function
+or directly from the Python prompt. Following is the example to call printme() function −
+# Function definition is here
+def printme( str ):
+"This prints a passed string into this function"
+print str
+return;
+# Now you can call printme function
+printme("I'm first call to user defined function!")
+printme("Again second call to the same function")
+When the above code is executed, it produces the following result −
+I'm first call to user defined function!
+Again second call to the same function
+Pass by reference vs value
+All parameters (arguments) in the Python language are passed by reference. It means if you
+change what a parameter refers to within a function, the change also reflects back in the calling
+function. For example −
+#!/usr/bin/python
+# Function definition is here
+def changeme( mylist ):
+"This changes a passed list into this function"
+mylist.append([1,2,3,4]);
+print "Values inside the function: ", mylist
+return
+# Now you can call changeme function
+mylist = [10,20,30];
+changeme( mylist );
+print "Values outside the function: ", mylist
+Here, we are maintaining reference of the passed object and appending values in the same
+object. So, this would produce the following result −
+Values inside the function: [10, 20, 30, [1, 2, 3, 4]]
+Values outside the function: [10, 20, 30, [1, 2, 3, 4]]
+There is one more example where argument is being passed by reference and the reference is
+being overwritten inside the called function.
+#!/usr/bin/python
+# Function definition is here
+def changeme( mylist ):
+"This changes a passed list into this function"
+mylist = [1,2,3,4]; # This would assig new reference in mylist
+print "Values inside the function: ", mylist
+return
+# Now you can call changeme function
+mylist = [10,20,30];
+changeme( mylist );
+print "Values outside the function: ", mylist
+The parameter mylist is local to the function changeme. Changing mylist within the function
+does not affect mylist. The function accomplishes nothing and finally this would produce the
+following result:
+Values inside the function: [1, 2, 3, 4]
+Values outside the function: [10, 20, 30]
+Function Arguments
+You can call a function by using the following types of formal arguments:
+Required arguments
+Keyword arguments
+Default arguments
+Variable-length arguments
+Required arguments
+Required arguments are the arguments passed to a function in correct positional order. Here,
+the number of arguments in the function call should match exactly with the function definition.
+To call the function printme(), you definitely need to pass one argument, otherwise it gives a
+syntax error as follows −
+def printme( str ):
+"This prints a passed string into this function"
+print str
+return;
+# Now you can call printme function
+printme() #### ERROR
+Keyword arguments
+Keyword arguments are related to the function calls. When you use keyword arguments in a
+function call, the caller identifies the arguments by the parameter name.
+This allows you to skip arguments or place them out of order because the Python interpreter is
+able to use the keywords provided to match the values with parameters. You can also make
+keyword calls to the printme() function in the following ways –
+def printinfo( name, age ):
+"This prints a passed info into this function"
+print "Name: ", name
+print "Age ", age
+return;
+printinfo( age=50, name="miki" )
+## Name: miki
+## Age 50
+Default arguments
+A default argument is an argument that assumes a default value if a value is not provided in the
+function call for that argument. The following example gives an idea on default arguments, it
+prints default age if it is not passed −
+def printinfo( name, age = 35 ):
+"This prints a passed info into this function"
+print "Name: ", name
+print "Age ", age
+return;
+printinfo( age=50, name="miki" )
+printinfo( name="miki" )
+## Name: miki
+## Age 50
+## Name: miki
+## Age 35
+Variable-length arguments
+You may need to process a function for more arguments than you specified while defining the
+function. These arguments are called variable-lengtharguments and are not named in the
+function definition, unlike required and default arguments.
+def printinfo( arg1, *vartuple ):
+"This prints a variable passed arguments"
+print "Output is: "
+print arg1
+for var in vartuple:
+print var
+return;
+# Now you can call printinfo function
+printinfo( 10 )
+printinfo( 70, 60, 50 )
+## Output is:
+## 10
+## Output is:
+## 70
+## 60
+## 50
+The return Statement
+The statement return [expression] exits a function, optionally passing back an expression to the
+caller. A return statement with no arguments is the same as return None.
+All the above examples are not returning any value. You can return a value from a function as
+follows −
+def sum( arg1, arg2 ):
+# Add both the parameters and return them."
+total = arg1 + arg2
+print "Inside the function : ", total
+return total;
+# Now you can call sum function
+total = sum( 10, 20 );
+print "Outside the function : ", total
+## Inside the function : 30
+## Outside the function : 30
+Scope of Variables
+All variables in a program may not be accessible at all locations in that program. This depends
+on where you have declared a variable.
+The scope of a variable determines the portion of the program where you can access a
+particular identifier. There are two basic scopes of variables in Python −
+Global variables
+Local variables
+Global vs. Local variables
+Variables that are defined inside a function body have a local scope, and those defined outside
+have a global scope.
+This means that local variables can be accessed only inside the function in which they are
+declared, whereas global variables can be accessed throughout the program body by all
+functions. When you call a function, the variables declared inside it are brought into scope.
+Following is a simple example −
+total = 0; # This is global variable.
+# Function definition is here
+def sum( arg1, arg2 ):
+total = arg1 + arg2; # Here total is local variable.
+print "Inside the function local total : ", total
+return total;
+sum( 10, 20 );
+print "Outside the function global total : ", total
+## Inside the function local total : 30
+## Outside the function global total : 0
+Types of Function definitions:
+Function with no args and with no return value
+def printme():
+print(“test string print ..”)
+printme();
+Function with args and with no return value
+def findSum(var1, var2):
+var3 =var1 + var2
+return
+var1 = 10;
+var2 = 20;
+findSum(var1, var2); ## arguments passed
+print "outside the function ", var1
+Function with no args and with return value
+def printVar(var1):
+var1=20
+return var1 ## returning value from function
+var1 = printVar(); ## no arguments passed
+print ("returned ", var1)
+Function with with args and with return value
+def printVar(var1):
+var1=20
+return var1
+var1 = 10; ## returning value from function
+var1 = printVar(var1); ## calling with argument
+print (“returned ” , var1)
+Python Optional Arguments/Python Arbitrary Arguments
+Sometimes, we do not know in advance the number of arguments that will be passed into a
+function.Python allows us to handle this kind of situation through function calls with arbitrary
+number of arguments.
+In the function definition we use an asterisk (*) before the parameter name to denote this kind
+of argument. Here is an example.
+def greet(*names):
+"""This function greets all
+the person in the names tuple."""
+# names is a tuple with arguments
+for name in names:
+print("Hello",name)
+greet("Monica","Luke","Steve","John")
+Hello Monica
+Hello Luke
+Hello Steve
+Hello John
+Keyword Arguments
+If you have some functions with many parameters and you want to specify only some of them,
+then you can give values for such parameters by naming them - this is called keyword
+arguments - we use the name (keyword) instead of the position (which we have been using all
+along) to specify the arguments to the function.
+There are two advantages - one, using the function is easier since we do not need to worry
+about the order of the arguments. Two, we can give values to only those parameters which we
+want, provided that the other parameters have default argument values.
+def test(**args):
+print(type(args))
+for i in args:
+print(i, args[i])
+test(b=30, c=20)
+output:
+<type 'dict'>
+('c', 20)
+('b', 30)
+###############################
+Python Global and Local variables:
+Global Variables
+In Python, a variable declared outside of the function or in global scope is known as global
+variable. This means, global variable can be accessed inside or outside of the function.
+Let's see an example on how a global variable is created in Python.
+x = "global"
+def foo():
+print("x inside :", x)
+foo()
+print("x outside:", x)
+When we run the code, the will output be:
+######################
+x inside : global
+x outside: global
+######################
+Local Variables
+A variable declared inside the function's body or in the local scope is known as local variable.
+def foo():
+y = "local"
+foo()
+print(y)
+NameError: name 'y' is not defined
+Create a Local Variable
+Normally, we declare a variable inside the function to create a local variable.
+def foo():
+y = "local"
+print(y)
+foo()
+When we run the code, it will output:
+###############
+local
+###############
+Global and local variables
+Here, we will show how to use global variables and local variables in the same code.
+x = "global"
+def foo():
+global x # this wil create a global object
+y = "local"
+x = x * 2
+print(x)
+print(y)
+foo()
+When we run the code, the will output be:
+global global
+local
+In the above code, we declare x as a global and y as a local variable in the foo(). Then, we use
+multiplication operator * to modify the global variable x and we print both x and y.
+After calling the foo(), the value of x becomes global global because we used the x * 2 to print
+two times global. After that, we print the value of local variable y i.e local.
+Global variable and Local variable with same name
+x = 5
+def foo():
+x = 10
+print("local x:", x)
+foo()
+print("global x:", x)
+When we run the code, the will output be:
+local x: 10
+global x: 5
+Python locals()
+locals() Parameters
+The locals() method doesn't take any parameters.
+Return value from locals()
+The locals() method updates and returns the dictionary associated with the current local
+symbol table.
+def localsNotPresent():
+return locals()
+def localsPresent():
+present = True
+return locals()
+print('localsNotPresent:', localsNotPresent())
+print('localsPresent:', localsPresent())
+When you run the program, the output will be:
+localsNotPresent: {}
+localsPresent: {'present': True}
+Python globals()
+globals() Parameters:
+The globals() method doesn't take any parameters.
+Return value from globals():
+The globals() method returns the dictionary of the current global symbol table.
+def method():
+value1 = "bird"
+value2 = "fish"
+value3 = 400
+# Display locals dictionary.
+print("locals ", locals())
+# Display gloobals dictionary
+print("globals", globals())
+valuex = "test_global"
+# Call the method.
+method()
+locals {'value1': 'bird', 'value2': 'fish', 'value3': 400}
+globals {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__':
+<_frozen_importlib_external.SourceFileLoader object at 0x01D4DCB0>, '__spec__': None,
+'__annotations__': {}, '__builtins__': <module 'builtins' (built-in)>, '__file__': 'x.py',
+'__cached__': None, 'method': <function method at 0x01D20810>, 'valuex': 'test_global'}
